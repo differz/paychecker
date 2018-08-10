@@ -1,0 +1,34 @@
+
+plugins {
+    id 'java'
+    id 'application'
+    id "org.springframework.boot" version "2.0.4.RELEASE"
+    id "io.spring.dependency-management" version "1.0.6.RELEASE"
+}
+
+sourceCompatibility = 1.8
+
+ext {
+    springBootVersion = '2.0.4.RELEASE'
+    main = 'com.differz.paychecker.Application'
+}
+
+bootJar {
+    mainClassName = "${main}"
+}
+
+jar {
+    mainClassName = "${main}"
+    baseName = 'pay-checker'
+    version = '1.0-SNAPSHOT'
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+dependencies {
+    compile project(':app')
+}

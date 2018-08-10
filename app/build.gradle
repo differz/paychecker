@@ -1,0 +1,18 @@
+
+plugins {
+    id 'java'
+    id "io.spring.dependency-management"
+}
+
+jar {
+    baseName = 'pay-checker-app'
+    version = '1.0-SNAPSHOT'
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter'
+}
+
+dependencyManagement {
+    imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
+}
