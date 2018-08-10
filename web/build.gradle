@@ -4,7 +4,7 @@ plugins {
 }
 
 jar {
-    baseName = 'pay-checker-app'
+    baseName = 'pay-checker-web'
     version = '1.0-SNAPSHOT'
 }
 
@@ -13,6 +13,6 @@ dependencyManagement {
 }
 
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter'
-    compile project(':web')
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
