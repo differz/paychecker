@@ -3,6 +3,7 @@ plugins {
     id 'application'
     id "org.springframework.boot" version "2.0.4.RELEASE"
     id "io.spring.dependency-management" version "1.0.6.RELEASE"
+    id 'com.gradle.build-scan' version '1.15.2'
 }
 
 sourceCompatibility = 1.8
@@ -30,4 +31,9 @@ allprojects {
 
 dependencies {
     compile project(':app')
+}
+
+buildScan {
+    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+    termsOfServiceAgree = 'yes'
 }
