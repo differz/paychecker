@@ -14,5 +14,7 @@ dependencyManagement {
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter'
+    compile project(':contracts')
+    compile project(':data')
     compile project(':web')
 }

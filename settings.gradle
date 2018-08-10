@@ -1,4 +1,7 @@
 rootProject.name = 'paychecker'
 
 include 'app'
+include 'core'
+include 'contracts'
+include 'data'
 include 'web'
