@@ -12,8 +12,8 @@ import org.springframework.context.annotation.PropertySource;
 public class SubscriptionConfiguration {
 
     @Bean
-    public SubscriptionRepository subscriptionRepository(@Value("${subscription.server}") String server,
-                                                         @Value("${subscription.key}") String key) {
-        return new GoogleSheetRepository(server, key);
+    public SubscriptionRepository subscriptionRepository(@Value("${subscription.spreadsheetId}") String spreadsheetId,
+                                                         @Value("${subscription.range}") String range) {
+        return new GoogleSheetRepository(spreadsheetId, range);
     }
 }

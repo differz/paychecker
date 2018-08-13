@@ -13,6 +13,11 @@ dependencyManagement {
 }
 
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    compile 'org.eclipse.jetty:jetty-webapp:9.+'
+    compile 'org.eclipse.jetty:jetty-jsp:9.+'
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    compile project(':contracts')
 }

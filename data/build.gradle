@@ -8,5 +8,8 @@ jar {
 }
 
 dependencies {
+    compile 'com.google.api-client:google-api-client:1.24.1'
+    compile 'com.google.oauth-client:google-oauth-client-jetty:1.24.1'
+    compile 'com.google.apis:google-api-services-sheets:v4-rev536-1.23.0'
     compile project(':contracts')
 }
