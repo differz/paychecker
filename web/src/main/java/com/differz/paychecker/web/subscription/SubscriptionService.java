@@ -1,6 +1,7 @@
 package com.differz.paychecker.web.subscription;
 
 import com.differz.paychecker.contracts.repositories.SubscriptionRepository;
+import com.differz.paychecker.core.Subscription;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -18,8 +19,7 @@ public class SubscriptionService {
 
     public String listSubscriptions() throws IOException {
 
-        List<Object> subscriptions = subscriptionRepository.findAllSubscriptions();
-
+        List<Subscription> subscriptions = subscriptionRepository.findAllSubscriptions();
 
         System.out.println(subscriptions);
 
