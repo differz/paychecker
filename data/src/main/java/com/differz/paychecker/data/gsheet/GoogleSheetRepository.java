@@ -25,19 +25,15 @@ public class GoogleSheetRepository implements SubscriptionRepository {
     @Override
     public List<Subscription> findAllSubscriptions() throws IOException {
         List<Subscription> subscriptions = new ArrayList<>();
-
         GoogleSheetAPI sheetAPI = new GoogleSheetAPI();
         List<List<Object>> values = sheetAPI.getSpreadSheetRecords(spreadsheetId, range);
 
         for (List<Object> row : values) {
-
             String clientCode = "";
             String clientName = "";
             LocalDate lastMonth = LocalDate.MAX;
             int index = 0;
             for (Object cell : row) {
-                System.out.println(cell.toString());
-
                 SheetHeader header = SheetHeader.byCode(++index);
                 if (header == PROJECT) {
                     clientName = "" + cell;
@@ -55,7 +51,6 @@ public class GoogleSheetRepository implements SubscriptionRepository {
             Subscription subscription = new Subscription(client, lastMonth);
             subscriptions.add(subscription);
         }
-
         return subscriptions;
     }
 }
