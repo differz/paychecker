@@ -16,7 +16,6 @@ public class SubscriptionService {
         this.subscriptionRepository = subscriptionRepository;
     }
 
-
     public String listSubscriptions() throws IOException {
 
         List<Subscription> subscriptions = subscriptionRepository.findAllSubscriptions();
