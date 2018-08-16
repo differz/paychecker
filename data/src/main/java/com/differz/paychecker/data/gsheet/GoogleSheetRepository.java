@@ -14,6 +14,7 @@ import static com.differz.paychecker.data.gsheet.SheetHeader.*;
 
 public class GoogleSheetRepository implements SubscriptionRepository {
 
+    private static final String MAX_DATE = "2222-01-01";
     private final String spreadsheetId;
     private final String range;
 
@@ -31,7 +32,7 @@ public class GoogleSheetRepository implements SubscriptionRepository {
         for (List<Object> row : values) {
             String clientCode = "";
             String clientName = "";
-            LocalDate lastMonth = LocalDate.MAX;
+            LocalDate lastMonth = LocalDate.parse(MAX_DATE);
             int index = 0;
             for (Object cell : row) {
                 SheetHeader header = SheetHeader.byCode(++index);
