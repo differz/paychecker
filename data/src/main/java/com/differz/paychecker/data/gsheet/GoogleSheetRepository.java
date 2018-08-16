@@ -10,6 +10,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.differz.paychecker.data.gsheet.SheetHeader.*;
+
 public class GoogleSheetRepository implements SubscriptionRepository {
 
     private final String spreadsheetId;
@@ -28,20 +30,30 @@ public class GoogleSheetRepository implements SubscriptionRepository {
         List<List<Object>> values = sheetAPI.getSpreadSheetRecords(spreadsheetId, range);
 
         for (List<Object> row : values) {
+
+            String clientCode = "";
+            String clientName = "";
+            LocalDate lastMonth = LocalDate.MAX;
+            int index = 0;
             for (Object cell : row) {
                 System.out.println(cell.toString());
 
-                String lastPaidMonth = "01." + cell;
-
-                Client client = new Client("1", "Name");
-
-                DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-                LocalDate lastMonth = LocalDate.parse(lastPaidMonth, df);
-
-                Subscription subscription = new Subscription(client, lastMonth);
-                subscriptions.add(subscription);
-
+                SheetHeader header = SheetHeader.byCode(++index);
+                if (header == PROJECT) {
+                    clientName = "" + cell;
+                }
+                if (header == EDRPOU) {
+                    clientCode = "" + cell;
+                }
+                if (header == EXPIRE) {
+                    String lastPaidMonth = "01." + cell;
+                    DateTimeFormatter df = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                    lastMonth = LocalDate.parse(lastPaidMonth, df);
+                }
             }
+            Client client = new Client(clientCode, clientName);
+            Subscription subscription = new Subscription(client, lastMonth);
+            subscriptions.add(subscription);
         }
 
         return subscriptions;

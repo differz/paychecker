@@ -5,18 +5,22 @@ import java.time.LocalDate;
 public class Subscription {
 
     private final Client client;
-    private final LocalDate expireDate;
+    private final LocalDate lastMonth;
 
     public Subscription(Client client, LocalDate lastMonth) {
         this.client = client;
-        this.expireDate = lastMonth.plusMonths(1);
+        this.lastMonth = lastMonth;
     }
 
     public Client getClient() {
         return client;
     }
 
+    public LocalDate getLastMonth() {
+        return lastMonth;
+    }
+
     public LocalDate getExpireDate() {
-        return expireDate;
+        return lastMonth.plusMonths(1);
     }
 }
