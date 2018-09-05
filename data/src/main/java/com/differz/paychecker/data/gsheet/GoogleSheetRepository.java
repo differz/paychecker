@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.differz.paychecker.data.gsheet.SheetHeader.*;
 
@@ -30,17 +31,21 @@ public class GoogleSheetRepository implements SubscriptionRepository {
         List<List<Object>> values = sheetAPI.getSpreadSheetRecords(spreadsheetId, range);
 
         for (List<Object> row : values) {
-            String clientCode = "";
+            String clientId = "";
             String clientName = "";
+            String clientNumber = "";
             LocalDate lastMonth = LocalDate.parse(MAX_DATE);
             int index = 0;
             for (Object cell : row) {
                 SheetHeader header = SheetHeader.byCode(++index);
-                if (header == PROJECT) {
+                if (header == NUMBER) {
+                    clientId = "" + cell;
+                }
+                if (header == CLNAME) {
                     clientName = "" + cell;
                 }
                 if (header == EDRPOU) {
-                    clientCode = "" + cell;
+                    clientNumber = "" + cell;
                 }
                 if (header == EXPIRE) {
                     String lastPaidMonth = "01." + cell;
@@ -48,10 +53,28 @@ public class GoogleSheetRepository implements SubscriptionRepository {
                     lastMonth = LocalDate.parse(lastPaidMonth, df);
                 }
             }
-            Client client = new Client(clientCode, clientName);
+            Client client = new Client(clientId, clientName, clientNumber);
             Subscription subscription = new Subscription(client, lastMonth);
             subscriptions.add(subscription);
         }
         return subscriptions;
+    }
+
+    @Override
+    public Optional<Subscription> findSubscriptionById(String id) throws IOException {
+        for (Subscription subscription : findAllSubscriptions()) {
+            if (id.equals(subscription.getClient().getId())) {
+                return Optional.of(subscription);
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Subscription> findSubscriptionByNumber(String number) throws IOException {
+        return findAllSubscriptions()
+                .stream()
+                .filter(e -> e.getClient().getNumber().equals(number))
+                .findAny();
     }
 }

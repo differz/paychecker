@@ -2,10 +2,11 @@ package com.differz.paychecker.data.gsheet;
 
 public enum SheetHeader {
 
-    PROJECT(1, "Project"),
-    EDRPOU(2, "Code"),
-    NUMBER(3, "Number"),
-    EXPIRE(4, "Expiration month");
+    NUMBER(1, "Number"),
+    CLNAME(2, "Project"),
+    EDRPOU(3, "Code"),
+    REGNUM(4, "Reg.num"),
+    EXPIRE(5, "Expiration month");
 
     private final int code;
     private final String name;
@@ -26,14 +27,17 @@ public enum SheetHeader {
     public static SheetHeader byCode(int code) {
         switch (code) {
             case 1:
-                return PROJECT;
-            case 2:
-                return EDRPOU;
-            case 3:
                 return NUMBER;
+            case 2:
+                return CLNAME;
+            case 3:
+                return EDRPOU;
             case 4:
+                return REGNUM;
+            case 5:
                 return EXPIRE;
+            default:
+                return null;
         }
-        return null;
     }
 }
