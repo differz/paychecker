@@ -3,16 +3,33 @@ package com.differz.paychecker.rest;
 import java.time.LocalDate;
 
 /**
- *  Project | Code | Number | Expire
+ * Project | Code | Number | Expire
  */
 public class ItsDetails {
 
+    private String service;
     private String name;
     private String edrpou;
     private String number;
     private LocalDate lastMonth;
     private LocalDate expireDate;
+    private LocalDate currentDate;
+    private boolean expired;
     private int projectId;
+
+    public ItsDetails() {
+        this.service = "ITS";
+        this.expired = true;
+        this.currentDate = LocalDate.now();
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public LocalDate getCurrentDate() {
+        return currentDate;
+    }
 
     public String getName() {
         return name;
@@ -52,6 +69,15 @@ public class ItsDetails {
 
     public void setExpireDate(LocalDate expireDate) {
         this.expireDate = expireDate;
+        setExpired();
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    private void setExpired() {
+        this.expired = !getCurrentDate().isBefore(getExpireDate());
     }
 
     public int getProjectId() {

@@ -1,12 +1,11 @@
 package com.differz.paychecker.rest;
 
 import com.differz.paychecker.contracts.repositories.SubscriptionRepository;
-import com.differz.paychecker.core.Client;
 import com.differz.paychecker.core.Subscription;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ItsService {
@@ -17,17 +16,30 @@ public class ItsService {
         this.subscriptionRepository = subscriptionRepository;
     }
 
-    public ItsDetails showItsInfo(String number) throws IOException {
+    public ItsDetails showItsByNumber(String number) throws IOException {
         ItsDetails details = new ItsDetails();
-        List<Subscription> subscriptions = subscriptionRepository.findAllSubscriptions();
-        for (Subscription subscription : subscriptions) {
-            Client client = subscription.getClient();
-            if (number.equals(client.getId())) {
-                details.setEdrpou(number);
-                details.setName(client.getName());
-                details.setLastMonth(subscription.getLastMonth());
-                details.setExpireDate(subscription.getExpireDate());
-            }
+        Optional<Subscription> result = subscriptionRepository.findSubscriptionByNumber(number);
+
+        if (result.isPresent()) {
+            Subscription subscription = result.get();
+            details.setEdrpou(number);
+            details.setName(subscription.getClient().getName());
+            details.setLastMonth(subscription.getLastMonth());
+            details.setExpireDate(subscription.getExpireDate());
+        }
+        return details;
+    }
+
+    public ItsDetails showItsById(String id) throws IOException {
+        ItsDetails details = new ItsDetails();
+        Optional<Subscription> result = subscriptionRepository.findSubscriptionById(id);
+
+        if (result.isPresent()) {
+            Subscription subscription = result.get();
+            details.setNumber(id);
+            details.setName(subscription.getClient().getName());
+            details.setLastMonth(subscription.getLastMonth());
+            details.setExpireDate(subscription.getExpireDate());
         }
         return details;
     }

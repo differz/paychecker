@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -18,7 +19,11 @@ public class ItsEndpoint {
     }
 
     @GetMapping("/its")
-    public ItsDetails getDetails(@RequestParam String number) throws IOException {
-        return itsService.showItsInfo(number);
+    public ItsDetails getDetailsByNumber(@RequestParam Optional<String> number,
+                                         @RequestParam Optional<String> id) throws IOException {
+        if (number.isPresent()) {
+            return itsService.showItsByNumber(number.get());
+        }
+        return itsService.showItsById(id.orElse("---"));
     }
 }
