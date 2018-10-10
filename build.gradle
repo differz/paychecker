@@ -7,8 +7,6 @@ plugins {
     id "org.sonarqube" version "2.6"
 }
 
-sourceCompatibility = 1.8
-
 ext {
     springBootVersion = '2.0.4.RELEASE'
     main = 'com.differz.paychecker.Application'
@@ -25,6 +23,10 @@ jar {
 }
 
 allprojects {
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
     repositories {
         mavenCentral()
     }
