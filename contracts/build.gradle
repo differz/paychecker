@@ -3,7 +3,7 @@ plugins {
 }
 
 jar {
-    baseName = 'pay-checker-contracts'
+    baseName = 'paychecker-contracts'
     version = '1.0-SNAPSHOT'
 }
 

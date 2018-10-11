@@ -1,10 +1,10 @@
 plugins {
     id 'java'
-    id "io.spring.dependency-management"
+    id 'io.spring.dependency-management'
 }
 
 jar {
-    baseName = 'pay-checker-web'
+    baseName = 'paychecker-web'
     version = '1.0-SNAPSHOT'
 }
 

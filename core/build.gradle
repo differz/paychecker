@@ -3,7 +3,7 @@ plugins {
 }
 
 jar {
-    baseName = 'pay-checker-core'
+    baseName = 'paychecker-core'
     version = '1.0-SNAPSHOT'
 }
 
